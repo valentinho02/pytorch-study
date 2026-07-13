@@ -15,10 +15,7 @@ test_dataset = datasets.MNIST(root='./data/MNIST', train=False, download=True, t
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=Batch_size, shuffle=True)
 test_loader = torch.utils.data.DataLoader(dataset=test_dataset, batch_size=Batch_size, shuffle=False)
 
-for (X_train, y_train) in train_loader:
-    print('X_train:', X_train.size(), 'type:', X_train.type())
-    print('y_train:', y_train.size(), 'type:', y_train.type())
-    break
+
 
 class Net(nn.Module):
     def __init__(self):
@@ -38,7 +35,6 @@ class Net(nn.Module):
 model = Net()
 optimizer = torch.optim.SGD(model.parameters(), lr = 0.01, momentum=0.5)
 criterion = nn.CrossEntropyLoss()
-print(model)
 
 def train(model, train_loader, optimizer, log_interval):
     model.train()
@@ -50,10 +46,6 @@ def train(model, train_loader, optimizer, log_interval):
         loss = criterion(output, label)
         loss.backward()
         optimizer.step()
-        if batch_idx % log_interval == 0:   
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                Epochs, batch_idx * len(image), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.item()))
             
 def evaluate(model, test_loader):
     model.eval()

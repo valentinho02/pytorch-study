@@ -8,7 +8,7 @@ from torch.utils.data import random_split
 
 Device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 print(f"Device: {Device}")
-EPOCHS = 20
+EPOCHS = 10
 BATCH_SIZE = 32
 
 train_dataset = datasets.MNIST(root='./data/MNIST', train=True, download  =True, transform=transforms.ToTensor())
@@ -22,7 +22,7 @@ train_dataset, validation_dataset = random_split(train_dataset, [train_dataset_s
    
 train_dataset_loader = torch.utils.data.DataLoader(dataset = train_dataset, batch_size = BATCH_SIZE, shuffle = True)
 validation_dataset_loader = torch.utils.data.DataLoader(dataset = validation_dataset, batch_size = BATCH_SIZE, shuffle = True)
-test_dataset_loader = torch.utils.data.DataLoader(dataset = test_dataset, batch_size = BATCH_SIZE, shuffle = True)
+test_dataset_loader = torch.utils.data.DataLoader(dataset = test_dataset, batch_size = BATCH_SIZE, shuffle = False)
 
 
 class MyCNNModel(nn.Module):
